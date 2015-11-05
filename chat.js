@@ -1,4 +1,5 @@
 var net = require('net');
+
 var chatServer = net.createServer(),
     clientList = [];
 chatServer.on('connection', function(client) {
@@ -27,6 +28,9 @@ function broadcast(message, client) {
                 clientList[i].destroy();
             }
         }
+    }
+    for (i = 0; i < cleanup.length; i += 1) {
+        clientList.splice(clientList.indexOf(cleanup[i]), 1);
     }
 }
 chatServer.listen(9000);
